@@ -100,7 +100,7 @@ def main(_):
     norm = FLAGS.norm
     learning_rate = FLAGS.lr
     epochs = FLAGS.epochs
-    device = torch.device('cuda') if FLAGS.use_gpu else torch.device('cpu')
+    device = torch.device('cpu')
 
     train_set = data.FB15KDataset(train_path, entity2id, relation2id)
     train_generator = torch_data.DataLoader(train_set, batch_size=batch_size)
