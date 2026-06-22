@@ -4,6 +4,13 @@ import model as model_definition
 import storage
 import os
 
+"""
+TO DO:
+Existing bug where the top predicted entity is always the head entity.
+This may be due to the fact that the training file is very small, and therefore the model is not learning meaningful embeddings.
+    - Try to run this with our larger movielens dataset and see if the issue persists.
+"""
+
 # Predict tail entities for a given head entity and relation for k positions
 
 def predict_sequence(model, h, r, entity2id, relation2id, top_k=None):
