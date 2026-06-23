@@ -43,7 +43,7 @@ def predict_sequence(model, h, r, entity2id, relation2id, top_k=None):
     print(f"Query relation: ({r})\n")
     print("Top predictions (tail entities):")
 
-    # Display k highest scoring predicti
+    # Display k highest scoring prediction
     for rank, idx in enumerate(sorted_indices[:top_k], start=1):
         print(f"{rank}. {id2entity[idx.item()]}")
 
