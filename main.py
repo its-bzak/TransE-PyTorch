@@ -14,15 +14,15 @@ from typing import Tuple
 FLAGS = flags.FLAGS
 flags.DEFINE_float("lr", default=0.01, help="Learning rate value.")
 flags.DEFINE_integer("seed", default=1234, help="Seed value.")
-flags.DEFINE_integer("batch_size", default=128, help="Maximum batch size.")
-flags.DEFINE_integer("validation_batch_size", default=64, help="Maximum batch size during model validation.")
+flags.DEFINE_integer("batch_size", default=512, help="Maximum batch size.")
+flags.DEFINE_integer("validation_batch_size", default=256, help="Maximum batch size during model validation.")
 flags.DEFINE_integer("vector_length", default=50, help="Length of entity/relation vector.")
 flags.DEFINE_float("margin", default=1.0, help="Margin value in margin-based ranking loss.")
 flags.DEFINE_integer("norm", default=1, help="Norm used for calculating dissimilarity metric (usually 1 or 2).")
-flags.DEFINE_integer("epochs", default=2000, help="Number of training epochs.")
-flags.DEFINE_string("dataset_path", default="./synth_data", help="Path to dataset.")
-flags.DEFINE_bool("use_gpu", default=True, help="Flag enabling gpu usage.")
-flags.DEFINE_integer("validation_freq", default=10, help="Validate model every X epochs.")
+flags.DEFINE_integer("epochs", default=2, help="Number of training epochs.")
+flags.DEFINE_string("dataset_path", default="./test_data", help="Path to dataset.")
+flags.DEFINE_bool("use_gpu", default=False, help="Flag enabling gpu usage.")
+flags.DEFINE_integer("validation_freq", default=1, help="Validate model every X epochs.")
 flags.DEFINE_string("checkpoint_path", default="", help="Path to model checkpoint (by default train from scratch).")
 flags.DEFINE_string("tensorboard_log_dir", default="./runs", help="Path for tensorboard log directory.")
 
@@ -172,12 +172,12 @@ def main(_):
                                        device=device, summary_writer=summary_writer,
                                        epoch_id=epoch_id, metric_suffix="val")
             score = hits_at_10
-            if score > best_score:
-                best_score = score
-                storage.save_checkpoint(model, optimizer, epoch_id, step, best_score)
+            # if score > best_score:
+            #     best_score = score
+            storage.save_checkpoint(model, optimizer, epoch_id, step, best_score)
 
     # Testing the best checkpoint on test dataset
-    storage.load_checkpoint("checkpoint.tar", model, optimizer)
+    
     best_model = model.to(device)
     best_model.eval()
     scores = test(model=best_model, data_generator=test_generator, entities_count=len(entity2id), device=device,

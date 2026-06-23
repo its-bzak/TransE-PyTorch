@@ -43,7 +43,7 @@ def predict_sequence(model, h, r, entity2id, relation2id, top_k=None):
     print(f"Query relation: ({r})\n")
     print("Top predictions (tail entities):")
 
-    # Display k highest scoring predictions
+    # Display k highest scoring predicti
     for rank, idx in enumerate(sorted_indices[:top_k], start=1):
         print(f"{rank}. {id2entity[idx.item()]}")
 
@@ -78,7 +78,7 @@ def load_model(dataset_path, checkpoint_path):
 
 def main():
     # Set paths for dataset and checkpoint
-    dataset_path = "./synth_data"
+    dataset_path = "./test_data"
     checkpoint_path = "checkpoint.tar"
 
     # Load the model and mappings

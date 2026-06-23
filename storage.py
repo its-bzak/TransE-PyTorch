@@ -18,6 +18,7 @@ def load_checkpoint(checkpoint_path: str, model: nn.Module, optim: optimizer.Opt
     :param optim: optimizer to  update state
     :return tuple of starting epoch id, starting step id, best checkpoint score
     """
+    print(f"Loading checkpoint from {checkpoint_path}...")
     checkpoint = torch.load(checkpoint_path)
     model.load_state_dict(checkpoint[_MODEL_STATE_DICT])
     optim.load_state_dict(checkpoint[_OPTIMIZER_STATE_DICT])
