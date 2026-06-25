@@ -37,7 +37,7 @@ def predict_sequence(model, h, r, entity2id, relation2id, top_k=None):
     scores = model.predict(triplets)
 
     # Sort scores
-    sorted_indices = torch.argsort(scores)
+    sorted_indices = torch.argsort(scores, descending=True)  # Lower scores indicate better matches
 
     print(f"\nQuery head: ({h})")
     print(f"Query relation: ({r})\n")
